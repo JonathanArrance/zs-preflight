@@ -25,10 +25,13 @@ GIT - development / nightly
 * python setup.py
 
 PIP - test build
-python -m pip install --index-url https://test.pypi.org/simple/ zspreflight
+
+  python -m pip install --index-url https://test.pypi.org/simple/ zspreflight
 
 PIP - stable build
-pip install zspreflight
+
+  pip install zspreflight
 
 Operation
-$ python ~/.local/lib/python2.7/site-packages/zspreflight/preflight.py
+
+  $ python ~/.local/lib/python2.7/site-packages/zspreflight/preflight.py
