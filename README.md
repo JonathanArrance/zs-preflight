@@ -18,17 +18,20 @@ Please check the Ubuntu HCL to verify your results.
 
 Once all of the results have been verified, please send your output file to support@zerostack.com
 
-Install
-GIT - development / nightly
+## Install
+### GIT - development / nightly
 * git clone https://github.com/JonathanArrance/zsdev.git
 * cd zspreflight
 * python setup.py
 
-PIP - test build
-python -m pip install --index-url https://test.pypi.org/simple/ zspreflight
+### PIP - test build
 
-PIP - stable build
-pip install zspreflight
+  python -m pip install --index-url https://test.pypi.org/simple/ zspreflight
 
-Operation
-$ python ~/.local/lib/python2.7/site-packages/zspreflight/preflight.py
+### PIP - stable build
+
+  pip install zspreflight
+
+### Operation
+
+  $ python ~/.local/lib/python2.7/site-packages/zspreflight/preflight.py
