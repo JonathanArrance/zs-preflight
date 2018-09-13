@@ -68,7 +68,7 @@ if(str(proceed).lower() == 'y' or str(proceed).lower() == 'yes'):
         if(key == 'nic_type' and len(value['out']) >= 1):
             y=''
             for x in value['out']:
-                y += "nic: %s speed: %s brand: %s\n"%(x['nic_name'],x['nic_speed'],x['nic_brand'])
+                y += "nic: %s speed: %s brand: %s comment: %s\n"%(x['nic_name'],x['nic_speed'],x['nic_brand'],x['text'])
             value['out'] = y
         print "%-20s %-15s %-15s %-15s" % (value['text'],value['result'],value['optional'],value['out'])
 

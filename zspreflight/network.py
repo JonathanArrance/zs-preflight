@@ -43,9 +43,12 @@ class network_check():
                     nic_speed = 0
                     if(int(speed.read().strip()) > 0):
                         nic_speed = int(speed.read().strip())
-                    nic.append({'nic_name':o,'nic_speed':nic_speed,'nic_brand':nic_brand})
+                        if(nic_speed == 1000):
+                            nic.append({'nic_name':o,'nic_speed':nic_speed,'nic_brand':nic_brand,'text':'NIC minimum config'})
+                        elif(nic_speed == 10000):
+                            nic.append({'nic_name':o,'nic_speed':nic_speed,'nic_brand':nic_brand,'text':'NIC recommended config'})
                 except Exception as e:
-                    nic.append({'nic_name':o,'nic_speed':'Unknown','nic_brand':nic_brand})
+                    nic.append({'nic_name':o,'nic_speed':'Unknown','nic_brand':nic_brand,'text':'NIC Unknown'})
             out = {'result':'Pass','optional':False,'out':nic,'text':'System Nic Info'}
         except Exception as e:
             out = {'result':e,'optional':False,'out':nic,'text':'System Nic Info'}
