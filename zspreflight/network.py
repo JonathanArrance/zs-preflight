@@ -40,6 +40,7 @@ class network_check():
                     nic_brand = 'Unknown'
                 try:
                     speed = open("/sys/class/net/%s/speed"%o,'r')
+                    print speed.read()
                     nic_speed = 0
                     if(int(speed.read().strip()) > 0):
                         nic_speed = int(speed.read().strip())
