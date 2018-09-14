@@ -1,5 +1,6 @@
 #!/usr/bin/python
 import subprocess
+import fnmatch
 
 class storage_check():
     def __init__(self):
@@ -55,7 +56,7 @@ class storage_check():
     ###########Internal
     def _get_drives(self):
         try:
-            proc = subprocess.Popen("lsblk -d -o name,rota,size | grep -v sr*", stdout=subprocess.PIPE, shell=True)
+            proc = subprocess.Popen("lsblk -d -o name,rota,size", stdout=subprocess.PIPE, shell=True)
             (output,err) = proc.communicate()
             output = str(output).strip()
             output = output.split('\n')
@@ -68,6 +69,8 @@ class storage_check():
                 disk = {}
                 split = o.split()
                 disk['name'] = split[0]
+                if(fnmatch.fnmatch(disk['name'], 'sr*')):
+                    continue
                 if(split[1] == '1'):
                     hdd_count += 1
                     disk['type'] = 'hdd'
