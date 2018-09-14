@@ -64,10 +64,10 @@ class compute_check():
                 }
         if(int(self.cpuinfo['Core(s) per socket']) >= 4):
             out['result'] = 'Pass'
-            out['text'] = 'Physical cores - suitable for test and dev'
+            out['text'] = 'Physical cores'
         if(int(self.cpuinfo['Core(s) per socket']) >= 8):
             out['result'] = 'Pass'
-            out['text'] = 'Physical cores - suitable for production, test and dev'
+            out['text'] = 'Physical cores'
 
         return out
 
