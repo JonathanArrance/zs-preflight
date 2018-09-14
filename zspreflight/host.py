@@ -63,7 +63,7 @@ class host_check():
             mem_bytes = os.sysconf('SC_PAGE_SIZE') * os.sysconf('SC_PHYS_PAGES')
             mem_gib = mem_bytes/(1024.**3)
             if(int(mem_gib) >= 64):
-                out = {'out':int(mem_gib) +'- minimum, 96GB recommended.','result':'Pass','optional':False,'text':'Host Memory'}
+                out = {'out':str(int(mem_gib)) +'- minimum, 96GB recommended.','result':'Pass','optional':False,'text':'Host Memory'}
             elif(int(mem_gib) >= 96):
                 out = {'out':int(mem_gib),'result':'Pass','optional':False,'text':'Host Memory'}
             else:
