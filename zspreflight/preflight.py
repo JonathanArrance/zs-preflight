@@ -26,6 +26,7 @@ if(str(proceed).lower() == 'y' or str(proceed).lower() == 'yes'):
     overall_compute_findings = {}
     overall_net_findings = {}
     overall_storage_findings = {}
+    overall_hardware = {}
 
     cc = compute_check()
     hc = host_check()
@@ -49,12 +50,12 @@ if(str(proceed).lower() == 'y' or str(proceed).lower() == 'yes'):
     #pprint.pprint(overall_compute_findings)
 
     overall_net_findings['nic_quantity'] = nc.nic_count()
-    overall_net_findings['nic_type'] = nc.nic_type()
+    overall_hardware['nic_type'] = nc.nic_type()
     #pprint.pprint(overall_net_findings)
 
     overall_storage_findings['storage_attached'] = sc.internal_drive_count()
-    overall_storage_findings['storage_controllers'] = sc.get_disk_controllers()
-    overall_storage_findings['storage_disks'] = sc.check_disk_size()
+    overall_hardware['storage_controllers'] = sc.get_disk_controllers()
+    overall_hardware['storage_disks'] = sc.check_disk_size()
     #pprint.pprint(overall_storage_findings)
 
     host = hc.host_name()
@@ -78,28 +79,37 @@ if(str(proceed).lower() == 'y' or str(proceed).lower() == 'yes'):
     print color.BLUE+'Host Network Configuration.'+color.END
     print color.BOLD+"%-20s %-15s %-15s %-15s"%('Test Ran:','Test Results:','Optional Test:','Test Output:')+color.END
     for key,value in overall_net_findings.items():
-        if(key == 'nic_type' and len(value['out']) >= 1):
-            y=''
-            for x in value['out']:
-                y += "nic: %s speed: %s brand: %s comment: %s\n"%(x['nic_name'],x['nic_speed'],x['nic_brand'],x['text'])
-            value['out'] = y
         print "%-20s %-15s %-15s %-15s" % (value['text'],value['result'],value['optional'],value['out'])
 
     print "\n\n"
     print color.BLUE+'Host Storage Configuration.'+color.END
     print color.BOLD+"%-20s %-15s %-15s %-15s"%('Test Ran:','Test Results:','Optional Test:','Test Output:')+color.END
     for key,value in overall_storage_findings.items():
-        if(key == 'storage_disks'):
-            y = ''
-            for s in value['out']:
-                y += "name: %s size: %s valid: %s type: %s\n"%(s['name'],s['size'],s['size_valid'],s['type'])
-            value['out'] = y
-        if(key == 'storage_controllers'):
-            y = ''
-            for s in value['out']:
-                y += "controller: %s\n"%(s['controller'])
-            value['out'] = y
         print "%-20s %-15s %-15s %-15s" % (value['text'],value['result'],value['optional'],value['out'])
+
+    print "\n\n"
+    print color.GREEN+color.BOLD+'Discovered Hardware.'+color.END
+    print "\n"
+    print color.BLUE+'NICS Discovered.'+color.END
+    print color.BOLD+"%-20s %-15s %-15s %-15s"%('NIC:','Speed:','Brand:','Output:')+color.END
+    for key,value in overall_hardware.items():
+        if(key == 'nic_type' and len(value['out']) >= 1):
+            for x in value['out']:
+                print "%-20s %-15s %-15s %-15s"%(x['nic_name'],x['nic_speed'],x['nic_brand'],x['text'])
+    print "\n"
+    print color.BLUE+'Disks Discovered.'+color.END
+    print color.BOLD+"%-20s %-15s %-15s %-15s"%('Drive Name:','Drive Size:','Drive Valid:','Drive Type:')+color.END
+    for key,value in overall_hardware.items():
+        if(key == 'storage_disks'):
+            for s in value['out']:
+                print "%-20s %-15s %-15s %-15s"%(s['name'],s['size'],s['size_valid'],s['type'])
+    print "\n"
+    print color.BLUE+'RAID Controllers Discovered.'+color.END
+    print color.BOLD+"%-60s %-25s %-25s"%('Storage Controller:','PCI Interface:','Controller Type:')+color.END
+    for key,value in overall_hardware.items():
+        if(key == 'storage_controllers'):
+            for s in value['out']:
+                print "%-60s %-25s %-25s"%(s['controller'],s['pci'],s['type'])
 
 elif(proceed.lower == 'n' or proceed.lower == 'no'):
     print "Zerostack pre-flight is exiting, please run the pre-flight checklist before installing the ZCOS on this host(s)"
