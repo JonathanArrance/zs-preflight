@@ -40,10 +40,10 @@ class network_check():
                     nic_brand = 'Unknown'
                 try:
                     speed = open("/sys/class/net/%s/speed"%o,'r')
-                    print speed.read()
-                    nic_speed = 0
-                    if(int(speed.read().strip()) > 0):
-                        nic_speed = int(speed.read().strip())
+                    if(int(speed.read()) < 0 or int(speed.read())):
+                        nic.append({'nic_name':o,'nic_speed':0,'nic_brand':nic_brand,'text':'NIC not recommended'})
+                    elif(int(speed.read()) > 0):
+                        nic_speed = int(speed.read())
                         if(nic_speed == 1000):
                             nic.append({'nic_name':o,'nic_speed':nic_speed,'nic_brand':nic_brand,'text':'NIC minimum config'})
                         elif(nic_speed >= 10000):
