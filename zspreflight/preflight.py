@@ -6,6 +6,18 @@ from storage import storage_check
 from host import host_check
 import pprint
 
+class color:
+   PURPLE = '\033[95m'
+   CYAN = '\033[96m'
+   DARKCYAN = '\033[36m'
+   BLUE = '\033[94m'
+   GREEN = '\033[92m'
+   YELLOW = '\033[93m'
+   RED = '\033[91m'
+   BOLD = '\033[1m'
+   UNDERLINE = '\033[4m'
+   END = '\033[0m'
+
 print "Zerostack pre-flight check system."
 proceed = raw_input("Do you want to proceed? (yes/no)")
 
@@ -47,23 +59,24 @@ if(str(proceed).lower() == 'y' or str(proceed).lower() == 'yes'):
 
     host = hc.host_name()
     print "\n\n"
-    print "Host Name: %s"%(host['out'])
+    print color.GREEN+color.BOLD+"Host Name: %s"%(host['out'])+color.END
+    print "\n"
     #Formatted report ouput to screen
-    print 'Overall Host Configuration.'
-    print "%-20s %-15s %-15s %-15s"%('Test Ran:','Test Results:','Optional Test:','Test Output:')
+    print color.BLUE+'Overall Host Configuration.'+color.END
+    print color.BOLD+"%-20s %-15s %-15s %-15s"%('Test Ran:','Test Results:','Optional Test:','Test Output:')+color.END
     for key,value in overall_host_findings.items():
         if(value['optional'] is False or value['result'] is False):
             print "%-20s %-15s %-15s %-15s" % (value['text'],value['result'],value['optional'],value['out'])
 
     print "\n\n"
-    print 'Host Compute Configuration.'
-    print "%-20s %-15s %-15s %-15s"%('Test Ran:','Test Results:','Optional Test:','Test Output:')
+    print color.BLUE+'Host Compute Configuration.'+color.END
+    print color.BOLD+"%-20s %-15s %-15s %-15s"%('Test Ran:','Test Results:','Optional Test:','Test Output:')+color.END
     for key,value in overall_compute_findings.items():
             print "%-20s %-15s %-15s %-15s" % (value['text'],value['result'],value['optional'],value['out'])
 
     print "\n\n"
-    print 'Host Network Configuration.'
-    print "%-20s %-15s %-15s %-15s"%('Test Ran:','Test Results:','Optional Test:','Test Output:')
+    print color.BLUE+'Host Network Configuration.'+color.END
+    print color.BOLD+"%-20s %-15s %-15s %-15s"%('Test Ran:','Test Results:','Optional Test:','Test Output:')+color.END
     for key,value in overall_net_findings.items():
         if(key == 'nic_type' and len(value['out']) >= 1):
             y=''
@@ -73,8 +86,8 @@ if(str(proceed).lower() == 'y' or str(proceed).lower() == 'yes'):
         print "%-20s %-15s %-15s %-15s" % (value['text'],value['result'],value['optional'],value['out'])
 
     print "\n\n"
-    print 'Host Storage Configuration.'
-    print "%-20s %-15s %-15s %-15s"%('Test Ran:','Test Results:','Optional Test:','Test Output:')
+    print color.BLUE+'Host Storage Configuration.'+color.END
+    print color.BOLD+"%-20s %-15s %-15s %-15s"%('Test Ran:','Test Results:','Optional Test:','Test Output:')+color.END
     for key,value in overall_storage_findings.items():
         if(key == 'storage_disks'):
             y = ''

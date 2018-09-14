@@ -5,12 +5,12 @@ with open("README", "r") as fh:
 
 setuptools.setup(
     name="zspreflight",
-    version="0.0.2",
+    version="0.0.3",
     author="Jonathan Arrance",
     author_email="jonathan@zerostack.com",
     description="The Zerostack preflight check will validate if your hardware is Zerostack ready.",
     long_description=long_description,
-    url="https://github.com/JonathanArrance/zsdev/tree/master/zspreflight",
+    url="https://github.com/Zerostack-open/zs-preflight.git",
     packages=setuptools.find_packages(),
     classifiers=(
         "Programming Language :: Python :: 2.7",
