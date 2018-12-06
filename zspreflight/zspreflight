@@ -41,18 +41,19 @@ def _run_validation(input_dict,output):
         client.connect(input_dict['host'], port='22', username=input_dict['user'], password=input_dict['password'])
         try:
             #pull the validator software to the target host
-            stdin, stdout, stderr = client.exec_command('sudo pip install zs_preflight')
+            stdin, stdout, stderr = client.exec_command('pip install zs-preflight')
         except Exception as e:
             print "Could not pull files to target host %s."%(input_dict['host'])
             _run_validation(input_dict,output)
 
         try:
             #run the validator
-            stdin, stdout, stderr = client.exec_command('zs-validate-host')
+            stdin2, stdout2, stderr2 = client.exec_command('preflight')
         except Exception as e:
             print "Could not pull files to target host %s."%(input_dict['host'])
             _run_validation(input_dict,output)
-        output.put(stdout.read())
+        ran = {'pip':stdout.read(),'validate':stdout2.read()}
+        output.put(ran)
     except Exception as e:
         print "Could not establish connection to %s"%(input_dict['host'])
         _run_validation(input_dict,output)
@@ -89,13 +90,14 @@ if __name__ == '__main__':
 
         results = [output.get() for p in processes]
 
-        for result in results:
-            print "-------------------------"
-            print "\n"
-            print result
+        for raw in results:
+            print "\n-------------------------\n"
+            result = str(raw['pip']).split('\n')
+            for r in result:
+                print r
 
     elif(str(proceed).lower() == 'n' or str(proceed).lower() == 'no'):
-        print "Zerostack pre-flight is exiting, please run the pre-flight checklist before installing the ZCOS on this host(s)"
+        print "Zerostack pre-flight is exiting, please run the pre-flight checklist before installing the ZCOS on the host(s)"
         exit
 
     else:

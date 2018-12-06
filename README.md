@@ -20,18 +20,28 @@ Once all of the results have been verified, please send your output file to supp
 
 ## Install
 ### GIT - development / nightly
-* git clone https://github.com/JonathanArrance/zsdev.git
+* git clone https://github.com/Zerostack-open/zs-preflight.git
 * cd zspreflight
-* python setup.py
+* python setup.py bdist_wheel
+
+### PIP - Development
+1. sudo python -m pip install --upgrade pip setuptools wheel
+2. sudo python -m pip install tqdm
+3. sudo python -m pip install --user --upgrade twine
 
 ### PIP - test build
+Upload to Test PIP
 
-  python -m pip install --index-url https://test.pypi.org/simple/ zspreflight
+1. $ twine upload --repository-url https://test.pypi.org/legacy/ dist/*
+2. $ python -m pip install --index-url https://test.pypi.org/simple/ zs-preflight
 
 ### PIP - stable build
 
-  pip install zspreflight
+* $ pip install zs-preflight
 
 ### Operation
 
-  $ python ~/.local/lib/python2.7/site-packages/zspreflight/preflight.py
+1. $ zspreflight
+2. Say yes to run the test.
+3. Add in the IP, Username, and password of the hosts you want to check.
+4. Let the test run and check the output
