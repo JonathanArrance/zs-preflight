@@ -26,7 +26,7 @@ class host_check():
         #check if the host has usb ports
         #if so how many
         try:
-            proc = subprocess.Popen("lspci | grep 'USB2'", stdout=subprocess.PIPE, shell=True)
+            proc = subprocess.Popen("sudo lspci | grep 'USB2'", stdout=subprocess.PIPE, shell=True)
             (output,err) = proc.communicate()
             output = str(output).strip()
             output = len(output.split('\n'))
@@ -42,7 +42,7 @@ class host_check():
         #check if there are any disks in the host
         #if so are they attached to a raid controller
         try:
-            proc = subprocess.Popen("lsblk -d -o name", stdout=subprocess.PIPE, shell=True)
+            proc = subprocess.Popen("sudo lsblk -d -o name", stdout=subprocess.PIPE, shell=True)
             (output,err) = proc.communicate()
             output = str(output).strip()
             output = output.split('\n')

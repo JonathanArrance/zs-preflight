@@ -53,7 +53,57 @@ class storage_check():
             out = {'out':self.controllers['storage_controllers'],'optional':True,'result':'Pass','text':'Storage Controllers'}
         return out
 
+    def get_disk_IO(self):
+        #check the generic disk IO for the discovered disks
+        drive_out = self._get_drive_stats()
+        return drive_out
+
+
     ###########Internal
+    def _get_drive_stats(self):
+        """
+        Return an array of dictionaries
+        """
+        drives = self._get_drives()
+        drive_out = []
+        for drive in drives['disks']:
+            #get drive reads
+            try:
+                proc = subprocess.Popen("sudo hdparm -Tt /dev/%s"%(drive['name']), stdout=subprocess.PIPE, shell=True)
+                (output,err) = proc.communicate()
+                outputs = str(output).strip().split('\n')
+                outputs.pop(0)
+            except Exception as e:
+                print e
+
+            #get the drive writes
+            try:
+                spec2 = {}
+                proc2 = subprocess.check_output(['sudo', 'dd', 'if=/dev/zero', 'of=/dev/vda','bs=1024','count=1000','oflag=dsync'], stderr=subprocess.STDOUT)
+                outputs2 = str(proc2).strip().split('\n')
+                spec2['name'] = drive['name']
+                spec2['test'] = 'Write 1024KB, Count 1000'
+                outputs2 = str(outputs2[2]).split(',')
+                spec2['speed'] = str(outputs2[3]).strip()
+                spec2['throughput'] = "1024kb in %s"%str(outputs2[2]).strip()
+                drive_out.append(spec2)
+            except Exception as e:
+                print e
+
+            #Build the drive read formatted out
+            for output in outputs:
+                spec = {}
+                split = output.split(':')
+                spec['name'] = drive['name']
+                spec['test'] = str(split[0]).strip()
+                for s in split:
+                    speed = s.split('=')
+                spec['speed'] = str(speed[1]).strip()
+                spec['throughput'] = str(speed[0]).strip()
+                drive_out.append(spec)
+
+        return drive_out
+
     def _get_drives(self):
         try:
             proc = subprocess.Popen("lsblk -d -o name,rota,size", stdout=subprocess.PIPE, shell=True)

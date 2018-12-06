@@ -1,11 +1,12 @@
 import setuptools
 
-with open("README", "r") as fh:
+with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="zspreflight",
-    version="0.0.3",
+    name="zs-preflight",
+    version="0.0.4",
+    scripts=['zspreflight/zspreflight'] ,
     author="Jonathan Arrance",
     author_email="jonathan@zerostack.com",
     description="The Zerostack preflight check will validate if your hardware is Zerostack ready.",
