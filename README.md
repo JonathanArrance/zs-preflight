@@ -28,7 +28,7 @@ Once all of the results have been verified, please send them to your SE.
 In order to get the preflight check working, you will need to make sure python 2.7 or 3.x is installed on the system the preflight check will be run from.
 <br />
 
-IP will also be requierd in order to install zs-precheck and the supporting packages.
+PIP will also be requierd in order to install zs-precheck and the supporting packages.
 <br />
 
 ### Prerequisites
