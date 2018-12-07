@@ -1,24 +1,56 @@
-# zs-preflight
-A preflight checklist script that will help an admin determine if the hardware they want to use for Zerostack is compatible.
+# ZeroStack preflight system check
 
-This is an automated preflight checklist that will work on a base ubuntu OS (14.04,16.04), and requires a minimum of python 2.7.
-
+The ZeroStack pre-flight system check can be used by an administrator or ZeroStack SE to determin if the hardware in question is compatible with the ZeroStack cloud operating system.
+<br />
 The preflight check will ensure that your physical server will work with the Zerostack ZCOS. Once this script is run, and
 all of the checks are varified, you will be able to install the ZCOS.
-
+<br />
 The preflight check will make sure the following adhears to the Zerostack minimal viable hardware spec.
-
+<br />
 1. Overall system configuration
 2. CPU architecture
 3. Storage requierments
 4. Networking
-
+<br />
 Please check the Ubuntu HCL to verify your results.
 [Ubuntu Server HCL](https://certification.ubuntu.com/server/)
 
-Once all of the results have been verified, please send your output file to support@zerostack.com
+<br />
+Once all of the results have been verified, please send them to your SE.
 
-## Install
+## Getting Started
+
+In order to get the preflight check working, you will need to make sure python 2.7 or 3.x is installed on the system the preflight check will be run from.
+<br />
+IP will also be requierd in order to install zs-precheck and the supporting packages.
+<br />
+### Prerequisites
+
+In order to get the zspreflight system working you will need to install the following packages on the sytstem you are running the preflight check from.
+<br />
+$ pip install paramiko
+<br />
+$ pip install gspread
+<br />
+$ pip install oauth2client
+
+### Installing
+
+To install the preflight check on the system, follow these steps. Make sure all of the pre-requisite packages have been installed.
+<br />
+$ pip install zs-preflight
+
+## Running the tests
+
+Run the pre-flight check with the following command.
+<br />
+$ zspreflight
+
+## Deployment
+
+Add additional notes about how to deploy this on a live system
+
+## Build and submit
 ### GIT - development / nightly
 1. git clone https://github.com/Zerostack-open/zs-preflight.git
 2. cd zspreflight
@@ -29,19 +61,20 @@ Once all of the results have been verified, please send your output file to supp
 2. sudo python -m pip install tqdm
 3. sudo python -m pip install --user --upgrade twine
 
-### PIP - test build
-Upload to Test PIP
+## Contributing
 
-1. $ twine upload --repository-url https://test.pypi.org/legacy/ dist/*
-2. $ python -m pip install --index-url https://test.pypi.org/simple/ zs-preflight
+Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
 
-### PIP - stable build
+## Versioning
 
-* $ pip install zs-preflight
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags).
 
-### Operation
+## Authors
 
-1. $ zspreflight
-2. Say yes to run the test.
-3. Add in the IP, Username, and password of the hosts you want to check.
-4. Let the test run and check the output
+* **Jonathan Arrance** - *Initial work* - [Zerostack-open](https://github.com/Zerostack-open)
+
+See also the list of [contributors](https://github.com/JonathanArrance) who participated in this project.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
