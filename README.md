@@ -20,9 +20,9 @@ Once all of the results have been verified, please send your output file to supp
 
 ## Install
 ### GIT - development / nightly
-* git clone https://github.com/Zerostack-open/zs-preflight.git
-* cd zspreflight
-* python setup.py bdist_wheel
+1. git clone https://github.com/Zerostack-open/zs-preflight.git
+2. cd zspreflight
+3. python setup.py bdist_wheel
 
 ### PIP - Development
 1. sudo python -m pip install --upgrade pip setuptools wheel

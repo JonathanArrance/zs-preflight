@@ -5,7 +5,6 @@ import paramiko
 import re
 import socket
 import multiprocessing as mp
-#from preflight import preflight as pf
 
 def _get_customer():
     customer_name = raw_input("What is the organization name? ")
