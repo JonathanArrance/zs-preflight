@@ -5,13 +5,13 @@ import paramiko
 import re
 import socket
 import multiprocessing as mp
+import ast
 
 def _get_customer():
     customer_name = raw_input("What is the organization name? ")
     customer_contact = raw_input("What is the customer contact email? ")
 
     #check if email is valid form
-    print customer_contact
     try:
         if re.match('^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$', customer_contact) != None:
             print "The minimum ZeroStack cluster is 4 nodes, you do not need to have 4 nodes to run this test."
@@ -31,6 +31,29 @@ def _get_node_ip():
 
     return host_ip
 
+def _run_pip(input_dict):
+    #establish a connection
+    flag = 'OK'
+    try:
+        client = paramiko.SSHClient()
+        client.load_system_host_keys()
+        client.set_missing_host_key_policy(paramiko.WarningPolicy)
+        client.connect(input_dict['host'], port='22', username=input_dict['user'], password=input_dict['password'])
+    except paramiko.SSHException:
+        print "Could not establish connection to %s and run pip"%(input_dict['host'])
+        flag = 'ERROR'
+
+    try:
+        #pull the validator software to the target host
+        stdin, stdout, stderr = client.exec_command('pip install zs-preflight')
+    except Exception as e:
+        print "Could not pull files to target host %s, %s."%(input_dict['host'],e)
+        flag = 'ERROR'
+
+    #finally:
+    client.close()
+    return flag
+
 def _run_validation(input_dict,output):
     #establish a connection
     try:
@@ -38,27 +61,19 @@ def _run_validation(input_dict,output):
         client.load_system_host_keys()
         client.set_missing_host_key_policy(paramiko.WarningPolicy)
         client.connect(input_dict['host'], port='22', username=input_dict['user'], password=input_dict['password'])
-        try:
-            #pull the validator software to the target host
-            stdin, stdout, stderr = client.exec_command('pip install zs-preflight')
-        except Exception as e:
-            print "Could not pull files to target host %s."%(input_dict['host'])
-            _run_validation(input_dict,output)
-
-        try:
-            #run the validator
-            stdin2, stdout2, stderr2 = client.exec_command('preflight')
-        except Exception as e:
-            print "Could not pull files to target host %s."%(input_dict['host'])
-            _run_validation(input_dict,output)
-        ran = {'pip':stdout.read(),'validate':stdout2.read()}
-        output.put(ran)
-    except Exception as e:
+    except paramiko.SSHException:
         print "Could not establish connection to %s"%(input_dict['host'])
         _run_validation(input_dict,output)
 
-    finally:
-        client.close()
+    try:
+        stdin, stdout, stderr = client.exec_command('preflight')
+    except Exception as e:
+        print "Could not run preflight files on target host %s."%(input_dict['host'])
+        _run_validation(input_dict,output)
+
+    #finally:
+    output.put(stdout.read())
+    client.close()
 
 if __name__ == '__main__':
     print "ZeroStack pre-flight check system."
@@ -91,9 +106,8 @@ if __name__ == '__main__':
 
         for raw in results:
             print "\n-------------------------\n"
-            result = str(raw['pip']).split('\n')
-            for r in result:
-                print r
+            #print type(ast.literal_eval(raw))
+            #print ast.literal_eval(raw)
 
     elif(str(proceed).lower() == 'n' or str(proceed).lower() == 'no'):
         print "Zerostack pre-flight is exiting, please run the pre-flight checklist before installing the ZCOS on the host(s)"

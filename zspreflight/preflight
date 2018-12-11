@@ -6,6 +6,7 @@ from zspreflight.storage import storage_check
 from zspreflight.host import host_check
 
 
+
 class color:
    PURPLE = '\033[95m'
    CYAN = '\033[96m'
@@ -55,6 +56,7 @@ def preflight():
    overall_hardware['nic_type'] = nc.nic_type()
    overall_hardware['nic_configured'] = nc.nic_configured()
 
+   '''
    host = hc.host_name()
    print "\n\n"
    print color.GREEN+color.BOLD+"Host Name: %s"%(host['out'])+color.END
@@ -130,9 +132,10 @@ def preflight():
        if(key == 'storage_controllers'):
            for s in value['out']:
                print "%-60s %-25s %-25s"%(s['controller'],s['pci'],s['type'])
-
+   '''
    return {'host':overall_host_findings,'compute':overall_compute_findings,'net':overall_net_findings,
            'storage':overall_storage_findings,'hardware':overall_hardware}
+
 
 if __name__ == '__main__':
    output = preflight()

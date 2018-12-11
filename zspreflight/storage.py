@@ -79,7 +79,7 @@ class storage_check():
             #get the drive writes
             try:
                 spec2 = {}
-                proc2 = subprocess.check_output(['sudo', 'dd', 'if=/dev/zero', 'of=/dev/vda','bs=1024','count=1000','oflag=dsync'], stderr=subprocess.STDOUT)
+                proc2 = subprocess.check_output(['sudo', 'dd', 'if=/dev/zero', 'of=/dev/%s'%(drive['name']),'bs=1024','count=1000','oflag=dsync'], stderr=subprocess.STDOUT)
                 outputs2 = str(proc2).strip().split('\n')
                 spec2['name'] = drive['name']
                 spec2['test'] = 'Write 1024KB, Count 1000'

@@ -29,6 +29,9 @@ class network_check():
         try:
             output = self._list_nics()
             for o in output:
+                if (os.path.isdir("/sys/class/net/"+o)):
+                    #skip if the net card does not exist
+                    continue
                 did = subprocess.Popen("sudo ls -al /sys/class/net/%s/device"%o, stdout=null, shell=True)
                 (didout,err) = did.communicate()
                 didout = str(didout).strip()[-7:]
