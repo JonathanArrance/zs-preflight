@@ -73,6 +73,10 @@ Add additional notes about how to deploy this on a live system
 2. sudo python -m pip install tqdm
 3. sudo python -m pip install --user --upgrade twine
 
+### TODO
+1. Upload data to Gsheet
+2. Fire off preflight from zspreflight on a remote system
+
 ## Authors
 
 * **Jonathan Arrance** - *Initial work* - [Zerostack-open](https://github.com/Zerostack-open)

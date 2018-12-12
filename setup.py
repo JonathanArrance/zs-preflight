@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="zs-preflight",
-    version="0.0.5b",
+    version="0.0.6Beta",
     scripts=['zspreflight/zspreflight','zspreflight/preflight'] ,
     author="Jonathan Arrance",
     author_email="jonathan@zerostack.com",
