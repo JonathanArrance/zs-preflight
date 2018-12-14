@@ -115,4 +115,4 @@ License
 -------
 
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/Zerostack-open/zs-preflight/blob/master/LICENSE) file for details
