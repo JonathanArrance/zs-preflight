@@ -32,7 +32,7 @@ In order to get the preflight check working, you will need to make sure python 2
 PIP will also be requierd in order to install zs-preflight and the supporting packages.
 
 
-*OS Requierments**
+**OS Requierments**
 
 CentOS 7
 
