@@ -29,13 +29,25 @@ Getting Started
 In order to get the preflight check working, you will need to make sure python 2.7 or 3.x is installed on the system the preflight check will run on.
 
 
-PIP will also be requierd in order to install zs-precheck and the supporting packages.
+PIP will also be requierd in order to install zs-preflight and the supporting packages.
 
 
-**Prerequisites**
+*OS Requierments**
+
+CentOS 7
+
+$ yum install -y epel-release,python-pip,hdparm
+
+Ubuntu 14.04 / 16.04 / 18.04
+
+$ apt install -y python-pip
+
+
+**Pre-flight Prerequisites**
 
 In order to get the zspreflight system working you will need to install the following packages on the sytstem you are running the preflight check from.
 
+PIP will install all of the packages needed to run the ZS-Preflight system, if they are not present.
 
 $ pip install paramiko
 
@@ -44,6 +56,7 @@ $ pip install gspread
 
 
 $ pip install oauth2client
+
 
 **Installing**
 
@@ -59,12 +72,6 @@ Run the pre-flight check with the following command.
 
 
 $ preflight
-
-
-**Deployment**
-
-
-PIP will install all of the packages needed to run the ZS-Preflight system.
 
 
 Build and submit
