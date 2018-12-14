@@ -1,35 +1,36 @@
-# ZeroStack preflight system check
+ZeroStack preflight system check
+================================
 
 The ZeroStack pre-flight system check can be used by an administrator or ZeroStack SE to determine if the hardware in question is compatible with the ZeroStack cloud operating system.
-<br />
+
 
 The preflight check will ensure that your physical server will work with the Zerostack ZCOS. Once this script is run, and
 all of the checks are varified, you will be able to install the ZCOS.
-<br />
+
 
 The preflight check will make sure the hardware adhears to the Zerostack minimal viable hardware spec.
-<br />
+
 
 1. Overall system configuration
 2. CPU architecture
 3. Storage requierments
 4. Networking
-<br />
+
 
 Please check the Ubuntu HCL to verify your results.
 [Ubuntu Server HCL](https://certification.ubuntu.com/server/)
-<br />
+
 
 Once all of the results have been verified, please send them to your SE.
-<br />
 
-## Getting Started
+Getting Started
+---------------
 
 In order to get the preflight check working, you will need to make sure python 2.7 or 3.x is installed on the system the preflight check will run on.
-<br />
+
 
 PIP will also be requierd in order to install zs-precheck and the supporting packages.
-<br />
+
 
 ### Prerequisites
 
